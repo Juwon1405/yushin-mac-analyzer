@@ -1,0 +1,115 @@
+<!doctype html>
+  <html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>macOS DFIR Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="app-shell">
+    <header class="topbar glass">
+      <div class="brand-wrap">
+        <div class="shield" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <defs>
+              <linearGradient id="shieldGrad" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#52f1d9"></stop>
+                <stop offset="100%" stop-color="#2f76ff"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M32 4L54 12V30c0 13.6-8.7 25.9-22 30C18.7 55.9 10 43.6 10 30V12L32 4z" fill="url(#shieldGrad)"></path>
+            <path d="M21 29.5l7 7 15-15" fill="none" stroke="#041631" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>macOS DFIR <span>Analyzer</span></h1>
+          <p class="sub">macOS collector ZIP / disk image parser for incident response</p>
+        </div>
+      </div>
+
+      <form id="upload-form" class="upload-wrap" autocomplete="off">
+        <label for="evidence-file" class="file-label">Evidence Upload</label>
+        <input id="evidence-file" name="evidence" type="file" accept=".zip,.dd,.raw,.img,.e01,.001,.aff,.dmg,.db,.sqlite,.sqlite3,.log,.txt,.json,.ndjson" required />
+        <button class="btn btn-primary" type="submit">Parse Evidence</button>
+      </form>
+    </header>
+
+    <main class="main-layout">
+      <aside class="sidebar glass" id="left-nav">
+        <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+        <button class="nav-btn" data-view="evidence">Evidence</button>
+        <button class="nav-btn" data-view="timeline">Timeline</button>
+        <button class="nav-btn" data-view="browser">Browser</button>
+        <button class="nav-btn" data-view="installed">Installed Programs</button>
+        <button class="nav-btn" data-view="persistence">Persistence</button>
+        <button class="nav-btn" data-view="security">Security Agents</button>
+        <button class="nav-btn" data-view="remote">Remote/KVM</button>
+        <button class="nav-btn" data-view="network">Network</button>
+        <button class="nav-btn" data-view="logs">Logs</button>
+        <button class="nav-btn" data-view="accounts">Accounts</button>
+        <button class="nav-btn" data-view="commands">Command History</button>
+        <button class="nav-btn" data-view="help">Help</button>
+      </aside>
+
+      <section class="content glass" id="content-panel">
+        <div id="content-header" class="content-header"></div>
+        <div id="content-body" class="content-body empty">
+          <p>Upload evidence to see parsed forensic artifacts.</p>
+        </div>
+      </section>
+
+      <aside class="inspector glass">
+        <section class="card">
+          <h2>Case</h2>
+          <label class="field-label" for="case-select">Loaded Cases</label>
+          <select id="case-select"></select>
+          <div class="case-actions">
+            <button class="btn btn-danger" id="btn-clear-history" type="button">Clear All History</button>
+          </div>
+          <div id="case-meta" class="meta-box">Waiting for evidence upload</div>
+        </section>
+
+        <section class="card">
+          <h2>Local LLM</h2>
+          <label class="field-label" for="local-model">Model</label>
+          <input id="local-model" value="qwen2.5:14b-instruct" />
+          <button class="btn btn-secondary" id="btn-local-llm">Run Local Analysis</button>
+          <pre id="local-analysis" class="analysis-box">Not executed yet.</pre>
+        </section>
+
+        <section class="card">
+          <h2>OpenAI (Server-configured)</h2>
+          <div id="openai-config" class="meta-box">Checking server config...</div>
+          <button class="btn btn-secondary" id="btn-openai">Run OpenAI Analysis</button>
+          <pre id="openai-analysis" class="analysis-box">Not executed yet.</pre>
+        </section>
+
+        <section class="card">
+          <h2>DFIR Report</h2>
+          <button class="btn btn-secondary" id="btn-report-pdf">Generate DFIR Report (PDF)</button>
+          <a id="report-download" class="report-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">Download Latest PDF</a>
+          <pre id="report-status" class="analysis-box">Not generated yet.</pre>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div id="artifact-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-panel">
+      <button id="modal-close" class="modal-close" type="button" aria-label="Close">✕</button>
+      <h3 id="modal-title">Artifact Detail</h3>
+      <div class="modal-tools">
+        <button id="modal-export" class="btn btn-inline" type="button">Export This Event (CSV)</button>
+      </div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX
+._*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Runtime data (per-case evidence + uploaded zips)
+cases/*
+!cases/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# Logs / outputs
+*.log
+*.zip
+output/
+tmp/
+
+# Secrets
+.env
+.env.*
+!.env.example
