@@ -1,6 +1,14 @@
 # yushin-mac-forensics-platform
 
-> **macOS DFIR Forensics Platform** — a self-hosted Flask web platform for macOS incident response. Ingests collector ZIPs and disk images, parses 30+ artifact categories into searchable evidence rows, and generates chain-of-custody-ready PDF reports — with optional local Ollama or OpenAI-assisted analysis.
+> **📦 Archived (2026-05).** This project is paused, not abandoned. It is planned to be **repurposed as the web UI for [agentic-dart](https://github.com/Juwon1405/agentic-dart)** after the SANS FIND EVIL! 2026 submission window closes — reading `findings.json` + `audit.jsonl` from an Agentic-DART run and rendering them in the browser, instead of running its own macOS-specific analysis pipeline.
+>
+> The macOS-specific collection logic this platform consumed is superseded by **[Velociraptor](https://docs.velociraptor.app/)** + **[agentic-dart-collector-adapter](https://github.com/Juwon1405/agentic-dart-collector-adapter)**, and the analysis logic by **[agentic-dart](https://github.com/Juwon1405/agentic-dart)** itself.
+>
+> No further changes on this branch until the repositioning work begins.
+
+---
+
+> **macOS DFIR Forensics Platform** — a self-hosted Flask web platform for macOS incident response.
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/flask-3.x-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
